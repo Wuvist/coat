@@ -1,0 +1,42 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+
+[Table("<#=TableName#>")]
+    class AdminInfo
+    {
+        [Key]
+		<# foreach (var column in Columns){ #>
+        public <#=GetColumnType(column)#> <#=column.COLUMN_NAME#> { get; set; }
+		<#}#>
+
+        //public string UserName { get; set; }
+        //public bool IsAdmin { get; set; }
+
+        public static SqlConnection OpenConnection()
+        {
+            string connStr = @"data source=.\SQLEXPRESS;Initial Catalog=d2d;user id=sa;password=tankeshi;";
+
+            SqlConnection connection = new SqlConnection(connStr);
+            connection.Open();
+            return connection;
+        }
+
+        public static AdminInfo Get(string id)
+        {
+            using (var conn = OpenConnection())
+            {
+                return conn.Get<AdminInfo>(id);
+            }
+        }
+
+        public bool Update()
+        {
+            using (var conn = OpenConnection())
+            {
+                return conn.Update<AdminInfo>(this);
+            }
+        }
+    }
