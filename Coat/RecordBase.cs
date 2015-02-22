@@ -5,7 +5,7 @@ using System.Configuration;
 
 namespace Coat
 {
-    public abstract class RecoadBase<T> where T : RecoadBase<T>
+    public abstract class RecordBase<T> where T : RecordBase<T>
     {
         private static string ConnStr;
         public static void SetConn(string connStr)
