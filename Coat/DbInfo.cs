@@ -8,6 +8,13 @@ namespace Coat
 {
     public class DbInfo
     {
+        public string Conn { get; set; }
+
+        public DbInfo(string conn)
+        {
+            this.Conn = conn;
+        }
+
         public class Column
         {
             public string COLUMN_NAME { get; set; }
@@ -15,11 +22,9 @@ namespace Coat
             public string IS_NULLABLE { get; set; }
         }
 
-        public static SqlConnection OpenConnection()
+        public SqlConnection OpenConnection()
         {
-            string connStr = @"data source=.\SQLEXPRESS;Initial Catalog=d2d;user id=sa;password=tankeshi;";
-
-            SqlConnection connection = new SqlConnection(connStr);
+            SqlConnection connection = new SqlConnection(this.Conn);
             connection.Open();
             return connection;
         }

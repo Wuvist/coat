@@ -18,7 +18,7 @@ namespace Coat
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\wuvis_000\documents\visual studio 2013\Projects\ConsoleApplication2\ConsoleApplication2\OrmTpl.tt"
+    #line 1 "C:\Users\wuvis_000\Documents\Visual Studio 2013\Projects\Coat\Coat\OrmTpl.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "12.0.0.0")]
     public partial class OrmTpl : OrmTplBase
     {
@@ -28,70 +28,49 @@ namespace Coat
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n[Table(\"");
+            this.Write("\r\nnamespace ");
             
-            #line 7 "C:\Users\wuvis_000\documents\visual studio 2013\Projects\ConsoleApplication2\ConsoleApplication2\OrmTpl.tt"
+            #line 7 "C:\Users\wuvis_000\Documents\Visual Studio 2013\Projects\Coat\Coat\OrmTpl.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n{\r\n\t[Table(\"");
+            
+            #line 9 "C:\Users\wuvis_000\Documents\Visual Studio 2013\Projects\Coat\Coat\OrmTpl.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableName));
             
             #line default
             #line hidden
             this.Write("\")]\r\n    class AdminInfo\r\n    {\r\n        [Key]\r\n\t\t");
             
-            #line 11 "C:\Users\wuvis_000\documents\visual studio 2013\Projects\ConsoleApplication2\ConsoleApplication2\OrmTpl.tt"
+            #line 13 "C:\Users\wuvis_000\Documents\Visual Studio 2013\Projects\Coat\Coat\OrmTpl.tt"
  foreach (var column in Columns){ 
             
             #line default
             #line hidden
             this.Write("        public ");
             
-            #line 12 "C:\Users\wuvis_000\documents\visual studio 2013\Projects\ConsoleApplication2\ConsoleApplication2\OrmTpl.tt"
+            #line 14 "C:\Users\wuvis_000\Documents\Visual Studio 2013\Projects\Coat\Coat\OrmTpl.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetColumnType(column)));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 12 "C:\Users\wuvis_000\documents\visual studio 2013\Projects\ConsoleApplication2\ConsoleApplication2\OrmTpl.tt"
+            #line 14 "C:\Users\wuvis_000\Documents\Visual Studio 2013\Projects\Coat\Coat\OrmTpl.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(column.COLUMN_NAME));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n\t\t");
             
-            #line 13 "C:\Users\wuvis_000\documents\visual studio 2013\Projects\ConsoleApplication2\ConsoleApplication2\OrmTpl.tt"
+            #line 15 "C:\Users\wuvis_000\Documents\Visual Studio 2013\Projects\Coat\Coat\OrmTpl.tt"
 }
             
             #line default
             #line hidden
-            this.Write(@"
-        //public string UserName { get; set; }
-        //public bool IsAdmin { get; set; }
-
-        public static SqlConnection OpenConnection()
-        {
-            string connStr = @""data source=.\SQLEXPRESS;Initial Catalog=d2d;user id=sa;password=tankeshi;"";
-
-            SqlConnection connection = new SqlConnection(connStr);
-            connection.Open();
-            return connection;
-        }
-
-        public static AdminInfo Get(string id)
-        {
-            using (var conn = OpenConnection())
-            {
-                return conn.Get<AdminInfo>(id);
-            }
-        }
-
-        public bool Update()
-        {
-            using (var conn = OpenConnection())
-            {
-                return conn.Update<AdminInfo>(this);
-            }
-        }
-    }");
+            this.Write("\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

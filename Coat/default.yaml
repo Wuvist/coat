@@ -1,2 +1,3 @@
-﻿conn: "data source=.\SQLEXPRESS;Initial Catalog=d2d;user id=sa;password=tankeshi;"
+﻿conn: data source=.\SQLEXPRESS;Initial Catalog=d2d;user id=sa;password=tankeshi;
 tables: [AdminInfo]
+output: .

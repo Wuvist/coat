@@ -57,6 +57,7 @@
       <HintPath>..\libs\Dapper.Rainbow.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
@@ -69,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RecordBase.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DbInfo.cs" />
     <Compile Include="OrmTpl.cs">
@@ -82,7 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="default.yaml" />
+    <None Include="default.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="OrmTpl.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>OrmTpl.cs</LastGenOutput>

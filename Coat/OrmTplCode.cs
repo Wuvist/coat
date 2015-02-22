@@ -7,11 +7,13 @@ namespace Coat
     partial class OrmTpl
     {
         private string TableName;
+        private string Namespace;
         private IEnumerable<DbInfo.Column> Columns;
 
-        public OrmTpl(string tableName, IEnumerable<DbInfo.Column> columns)
+        public OrmTpl(string Namespace, string tableName, IEnumerable<DbInfo.Column> columns)
         {
             this.TableName = tableName;
+            this.Namespace = Namespace;
             this.Columns = columns;
         }
 

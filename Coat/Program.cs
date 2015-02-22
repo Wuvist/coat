@@ -5,50 +5,25 @@ using Dapper.Rainbow;
 using System.Collections.Generic;
 using System.Transactions;
 using System.Text;
-using System.Data.SqlClient;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace Coat
 {
-    [Table("ELMAH_Error")]
-    class AdminInfo
-    {
-        [Key]
-        public Guid ErrorId { get; set; }
-        public string Message { get; set; }
-
-        //public string UserName { get; set; }
-        //public bool IsAdmin { get; set; }
-
-        public static SqlConnection OpenConnection()
-        {
-            string connStr = @"data source=.\SQLEXPRESS;Initial Catalog=d2d;user id=sa;password=tankeshi;";
-
-            SqlConnection connection = new SqlConnection(connStr);
-            connection.Open();
-            return connection;
-        }
-
-        public static AdminInfo Get(string id)
-        {
-            using (var conn = OpenConnection())
-            {
-                return conn.Get<AdminInfo>(id);
-            }
-        }
-
-        public bool Update()
-        {
-            using (var conn = OpenConnection())
-            {
-                return conn.Update<AdminInfo>(this);
-            }
-        }
-    }
-
     class Program
     {
         static void Main(string[] args)
         {
+            if (args.Length != 1) {
+                Console.WriteLine("Use: coat.exe config.yaml");
+                return;
+            }
+
+            var input = System.IO.File.OpenText("default.yaml");
+            var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
+
+            var config = deserializer.Deserialize<Config>(input);
+            
             //using (var transactionScope = new TransactionScope()) {
             //    var obj = AdminInfo.Get("14B63059-DF00-4945-AD5D-60AF0EAB6E96");
             //    var s = Snapshotter.Start<AdminInfo>(obj);
@@ -58,14 +33,14 @@ namespace Coat
             //    transactionScope.Complete();
             //}
 
-            //var info = new DbInfo();
-            //string TableName = "AdminInfo";
-            //var columns = info.GetColumns(TableName);
-
-
-            //var tmp = new OrmTpl(TableName, columns);
-            //Console.WriteLine(tmp.TransformText());
-
+            var info = new DbInfo(config.Conn);
+            
+            foreach (var TableName in config.Tables) {
+                var columns = info.GetColumns(TableName);
+                var tpl = new OrmTpl(config.Namespace, TableName, columns);
+                var output = System.IO.Path.Combine(config.Output, TableName +".generated.cs");
+                System.IO.File.WriteAllText(output, tpl.TransformText());
+            }
         }
     }
 }
