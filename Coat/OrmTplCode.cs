@@ -33,8 +33,20 @@ namespace Coat
                 case "int":
                 case "int identity":
                     return "int";
+                case "decimal":
+                    return "decimal";
+                case "real":
+                    return "float";
+                case "money":
+                case "float":
+                    return "double";
+                case "text":
                 case "ntext":
+                case "varchar":
+                case "nvarchar":
                     return "string";
+                case "uniqueidentifier":
+                    return "Guid";
                 default:
                     throw new Exception("Unsupported DB type: " + column.TYPE_NAME);
             }
