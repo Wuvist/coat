@@ -73,12 +73,12 @@
     <Compile Include="RecordBase.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DbInfo.cs" />
-    <Compile Include="OrmTpl.cs">
+    <Compile Include="tpl\OrmTpl.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OrmTpl.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrmTplCode.cs" />
+    <Compile Include="tpl\OrmTplCode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -87,7 +87,7 @@
     <None Include="default.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="OrmTpl.tt">
+    <None Include="tpl\OrmTpl.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>OrmTpl.cs</LastGenOutput>
     </None>

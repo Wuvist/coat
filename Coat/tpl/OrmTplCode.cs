@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Coat
+namespace Coat.tpl
 {
 
     partial class OrmTpl

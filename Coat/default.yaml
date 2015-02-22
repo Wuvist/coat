@@ -1,4 +1,4 @@
 ﻿conn: data source=.\SQLEXPRESS;Initial Catalog=d2d;user id=sa;password=tankeshi;
 tables: ["*"]
-output: .
+output: C:\Users\wuvis_000\Desktop\65dg\d2d\web\DeliverySystem\GenModels
 namespace: d2d
