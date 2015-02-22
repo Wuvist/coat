@@ -7,12 +7,20 @@ namespace Coat.tpl
     partial class OrmTpl
     {
         private string TableName;
+        private string ClassName;
         private string Namespace;
-        private IEnumerable<DbInfo.Column> Columns;
+        private List<DbInfo.Column> Columns;
 
-        public OrmTpl(string Namespace, string tableName, IEnumerable<DbInfo.Column> columns)
+        public OrmTpl(string Namespace, string tableName, List<DbInfo.Column> columns)
         {
             this.TableName = tableName;
+            this.ClassName = tableName;
+            foreach (var c in columns) {
+                // To avoid "member name cannot be same as enclosing type" restriction in C#
+                if (c.COLUMN_NAME == tableName) {
+                    this.ClassName = tableName + "Table";
+                }
+            }
             this.Namespace = Namespace;
             this.Columns = columns;
         }
@@ -55,7 +63,7 @@ namespace Coat.tpl
         string GetColumnType(DbInfo.Column column)
         {
             var dataType = GetDataType(column);
-            if (column.IS_NULLABLE == "YES")
+            if (column.IS_NULLABLE == "YES" && dataType != "string")
             {
                 return dataType + "?";
             }

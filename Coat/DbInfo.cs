@@ -29,12 +29,17 @@ namespace Coat
             return connection;
         }
 
-        public IEnumerable<Column> GetColumns(string tableName)
+        public List<Column> GetColumns(string tableName)
         {
+            var result = new List<Column>();
             using (var conn = OpenConnection())
             {
-                return conn.Query<Column>("sp_columns", new { table_name = tableName }, commandType: CommandType.StoredProcedure);
+                var columns = conn.Query<Column>("sp_columns", new { table_name = tableName }, commandType: CommandType.StoredProcedure);
+                foreach (var c in columns) {
+                    result.Add(c);
+                }
             }
+            return result;
         }
 
         public List<string> GetAllTableNames()
