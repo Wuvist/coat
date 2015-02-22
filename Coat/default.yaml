@@ -1,3 +1,4 @@
 ﻿conn: data source=.\SQLEXPRESS;Initial Catalog=d2d;user id=sa;password=tankeshi;
-tables: [AdminInfo]
+tables: ["*"]
 output: .
+namespace: d2d

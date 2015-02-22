@@ -14,7 +14,8 @@ namespace Coat
     {
         static void Main(string[] args)
         {
-            if (args.Length != 1) {
+            if (args.Length != 1)
+            {
                 Console.WriteLine("Use: coat.exe config.yaml");
                 return;
             }
@@ -23,7 +24,7 @@ namespace Coat
             var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
 
             var config = deserializer.Deserialize<Config>(input);
-            
+
             //using (var transactionScope = new TransactionScope()) {
             //    var obj = AdminInfo.Get("14B63059-DF00-4945-AD5D-60AF0EAB6E96");
             //    var s = Snapshotter.Start<AdminInfo>(obj);
@@ -34,11 +35,17 @@ namespace Coat
             //}
 
             var info = new DbInfo(config.Conn);
-            
-            foreach (var TableName in config.Tables) {
-                var columns = info.GetColumns(TableName);
-                var tpl = new OrmTpl(config.Namespace, TableName, columns);
-                var output = System.IO.Path.Combine(config.Output, TableName +".generated.cs");
+            List<string> tableNames = config.Tables;
+            if (config.Tables[0] == "*")
+            {
+                tableNames = info.GetAllTableNames();
+            }
+
+            foreach (var tableName in tableNames)
+            {
+                var columns = info.GetColumns(tableName);
+                var tpl = new OrmTpl(config.Namespace, tableName, columns);
+                var output = System.IO.Path.Combine(config.Output, tableName + ".generated.cs");
                 System.IO.File.WriteAllText(output, tpl.TransformText());
             }
         }

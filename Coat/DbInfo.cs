@@ -36,5 +36,19 @@ namespace Coat
                 return conn.Query<Column>("sp_columns", new { table_name = tableName }, commandType: CommandType.StoredProcedure);
             }
         }
+
+        public List<string> GetAllTableNames()
+        {
+            var result = new List<string>();
+            using (var conn = OpenConnection())
+            {
+                var reader = conn.ExecuteReader("SELECT name FROM sys.Tables");
+                while (reader.Read())
+                {
+                    result.Add(reader.GetString(0));
+                }
+            }
+            return result;
+        }
     }
 }

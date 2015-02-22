@@ -17,12 +17,15 @@ namespace Coat
             this.Columns = columns;
         }
 
-        string GetName(string name) {
+        string GetName(string name)
+        {
             return "bingo" + name;
         }
 
-        string GetDataType(DbInfo.Column column) {
-            switch (column.TYPE_NAME) {
+        string GetDataType(DbInfo.Column column)
+        {
+            switch (column.TYPE_NAME)
+            {
                 case "bit":
                     return "bool";
                 case "datetime":
@@ -40,7 +43,8 @@ namespace Coat
         string GetColumnType(DbInfo.Column column)
         {
             var dataType = GetDataType(column);
-            if (column.IS_NULLABLE == "YES") {
+            if (column.IS_NULLABLE == "YES")
+            {
                 return dataType + "?";
             }
 
