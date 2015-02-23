@@ -56,16 +56,7 @@ namespace Coat
             }
         }
 
-        public static List<T> FindAll()
-        {
-            using (var conn = OpenConnection())
-            {
-                var sql = "select * from " + TableName;
-                return conn.Query<T>(sql).ToList();
-            }
-        }
-
-        public static List<T> FindAll(string where, object param)
+        public static List<T> Find(string where, object param = null)
         {
             using (var conn = OpenConnection())
             {
@@ -74,12 +65,21 @@ namespace Coat
             }
         }
 
-        public static T FindOne(string where, object param)
+        public static T FindOne(string where, object param = null)
         {
             using (var conn = OpenConnection())
             {
                 var sql = "select top 1 * from " + TableName + " where " + where;
                 return conn.Query<T>(sql, param).FirstOrDefault();
+            }
+        }
+
+        public static List<T> FindAll()
+        {
+            using (var conn = OpenConnection())
+            {
+                var sql = "select * from " + TableName;
+                return conn.Query<T>(sql).ToList();
             }
         }
 

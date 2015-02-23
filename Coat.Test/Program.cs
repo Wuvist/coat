@@ -11,7 +11,7 @@ namespace Coat.Test
     {
         static void Main(string[] args)
         {
-            var o = d2d.AdminInfo.FindOne("UserName = 'testuser'", null);
+            var o = d2d.AdminInfo.FindOne("UserName = 'testuser'");
             Console.WriteLine(o.UserName);
 
         }
