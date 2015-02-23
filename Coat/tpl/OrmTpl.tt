@@ -21,5 +21,11 @@ namespace <#=Namespace#>
 <# foreach (var column in Columns){ #>
         public <#=GetColumnType(column)#> <#=column.COLUMN_NAME#> { get; set; }
 <#}#>
+
+		static <#=ClassName#> ()
+		{
+			TableName = "<#=TableName#>";
+			PrimaryKey = "<#=Columns[0].COLUMN_NAME#>";
+		}
     }
 }
