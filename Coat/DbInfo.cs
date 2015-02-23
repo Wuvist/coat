@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Coat
 {
@@ -31,15 +32,11 @@ namespace Coat
 
         public List<Column> GetColumns(string tableName)
         {
-            var result = new List<Column>();
             using (var conn = OpenConnection())
             {
-                var columns = conn.Query<Column>("sp_columns", new { table_name = tableName }, commandType: CommandType.StoredProcedure);
-                foreach (var c in columns) {
-                    result.Add(c);
-                }
+                var result = conn.Query<Column>("sp_columns", new { table_name = tableName }, commandType: CommandType.StoredProcedure);
+                return result.ToList<Column>();
             }
-            return result;
         }
 
         public List<string> GetAllTableNames()
