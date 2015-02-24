@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using Dapper.Rainbow;
@@ -36,6 +37,7 @@ namespace Coat
 
             var info = new DbInfo(config.Conn);
             List<string> tableNames = config.Tables;
+            var ignoreTables = (from table in config.Tables where table.StartsWith("-") select table.Substring(1)).ToList();
             if (config.Tables[0] == "*")
             {
                 tableNames = info.GetAllTableNames();
@@ -43,6 +45,10 @@ namespace Coat
 
             foreach (var tableName in tableNames)
             {
+                if (ignoreTables.Contains(tableName))
+                {
+                    continue;
+                }
                 var table = info.GetTable(tableName);
                 var tpl = new tpl.OrmTpl(config.Namespace, tableName, table);
                 var output = System.IO.Path.Combine(config.Output, tableName + ".generated.cs");

@@ -1,4 +1,4 @@
 ﻿conn: data source=.\SQLEXPRESS;Initial Catalog=d2d;user id=sa;password=tankeshi;
-tables: ["*"]
+tables: ["*", -UserTemplate, -webpages_UsersInRoles]
 output: C:\Users\wuvis_000\Documents\Visual Studio 2013\Projects\Coat\Coat.Test\models\
 namespace: d2d

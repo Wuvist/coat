@@ -20,13 +20,14 @@ Coat currently supports R->O mapping, i.e. it reads existing schema from databas
 `default.yaml` could be config values to be loaded, it requires 4 parameters, like:
 
 	conn: data source=.\SQLEXPRESS;Initial Catalog=d2d;user id=sa;password=;
-	tables: ["*"]
+	tables: ["*", -UserTemplate]
 	output: C:\Users\wuvis_000\Desktop\65dg\d2d\web\DeliverySystem\GenModels
 	namespace: d2d
 
 * conn: string, the sql server connection string
 * tables: string array, the list of tables names to be processed.
   * _"*"_ is a special value, meaning all tables.
+  * if tablename starts with "-"， means that it won't be included
 * output: string, output path for generated files.
   * generated file name is like `tablename.generated.cs`
 * namespace: string, the namespace of generated files
