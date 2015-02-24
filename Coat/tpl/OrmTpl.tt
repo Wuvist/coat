@@ -9,8 +9,11 @@
 // </auto-generated>
 // ------------------------------------------------------------------------------
 using Coat;
+using Dapper;
 using Dapper.Contrib.Extensions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace <#=Namespace#>
 {
@@ -33,6 +36,16 @@ namespace <#=Namespace#>
             using (var conn = OpenConnection())
             {
                 return conn.Get<<#=ClassName#>>(id);
+            }
+        }
+
+		public static List<<#=ClassName#>> GetByIDs(List<<#=GetColumnType(TableInfo.PrimayColumn)#>> ids)
+        {
+            using (var conn = OpenConnection())
+            {
+                var sql = "select * from <#=TableName#> where <#=TableInfo.PrimaryKey#> in @ids";
+                
+                return conn.Query<<#=ClassName#>>(sql, new {ids = ids}).ToList();
             }
         }
     }

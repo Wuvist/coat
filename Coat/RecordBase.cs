@@ -36,18 +36,6 @@ namespace Coat
             System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(T).TypeHandle);
         }
 
-        public static List<T> GetByIDs(string[] ids)
-        {
-            using (var conn = OpenConnection())
-            {
-                var sql = "select * from " + TableName + " where " + PrimaryKey + " in [@ids]";
-                var dynParms = new DynamicParameters();
-                dynParms.Add("@ids", ids);
-
-                return conn.Query<T>(sql, ids).ToList();
-            }
-        }
-
         public static List<T> Find(string where, object param = null)
         {
             using (var conn = OpenConnection())
