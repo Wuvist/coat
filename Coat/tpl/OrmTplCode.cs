@@ -63,7 +63,9 @@ namespace Coat.tpl
         string GetColumnType(DbInfo.Column column)
         {
             var dataType = GetDataType(column);
-            if (column.IS_NULLABLE == "YES" && dataType != "string")
+
+            // todo: must check for value type properly
+            if (column.NULLABLE && dataType != "string")
             {
                 return dataType + "?";
             }

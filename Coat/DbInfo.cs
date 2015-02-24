@@ -20,7 +20,7 @@ namespace Coat
         {
             public string COLUMN_NAME { get; set; }
             public string TYPE_NAME { get; set; }
-            public string IS_NULLABLE { get; set; }
+            public bool NULLABLE { get; set; }
         }
 
         public SqlConnection OpenConnection()
