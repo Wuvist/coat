@@ -23,6 +23,13 @@ namespace Coat
             public bool NULLABLE { get; set; }
         }
 
+        public class Table
+        {
+            public List<Column> Columns { get; set; }
+            public Column PrimayColumn { get; set; }
+            public string PrimaryKey { get; set; }
+        }
+
         public SqlConnection OpenConnection()
         {
             SqlConnection connection = new SqlConnection(this.Conn);
@@ -36,6 +43,39 @@ namespace Coat
             {
                 var result = conn.Query<Column>("sp_columns", new { table_name = tableName }, commandType: CommandType.StoredProcedure);
                 return result.ToList<Column>();
+            }
+        }
+
+        public string GetPrimaryKey(string tableName)
+        {
+            using (var conn = OpenConnection())
+            {
+                var sql = @"SELECT Col.Column_Name from 
+                                INFORMATION_SCHEMA.TABLE_CONSTRAINTS Tab, 
+                                INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE Col 
+                            WHERE 
+                                Col.Constraint_Name = Tab.Constraint_Name
+                                AND Col.Table_Name = Tab.Table_Name
+                                AND Constraint_Type = 'PRIMARY KEY'
+                                AND Col.Table_Name = @table_name";
+                return conn.Query<string>(sql, new { table_name = tableName }).First();
+            }
+        }
+
+        public Table GetTable(string tableName)
+        {
+            using (var conn = OpenConnection())
+            {
+                var result = new Table();
+                result.Columns = GetColumns(tableName);
+                result.PrimaryKey = GetPrimaryKey(tableName);
+                if (result.PrimaryKey != result.Columns[0].COLUMN_NAME)
+                {
+                    throw new Exception(tableName + "'s first column is not primary key");
+                }
+                result.PrimayColumn = result.Columns[0];
+
+                return result;
             }
         }
 

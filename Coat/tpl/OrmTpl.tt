@@ -18,14 +18,22 @@ namespace <#=Namespace#>
     public class <#=ClassName#> : RecordBase<<#=ClassName#>>
     {
         [Key]
-<# foreach (var column in Columns){ #>
+<# foreach (var column in TableInfo.Columns){ #>
         public <#=GetColumnType(column)#> <#=column.COLUMN_NAME#> { get; set; }
 <#}#>
 
 		static <#=ClassName#> ()
 		{
 			TableName = "<#=TableName#>";
-			PrimaryKey = "<#=Columns[0].COLUMN_NAME#>";
+			PrimaryKey = "<#=TableInfo.PrimaryKey#>";
 		}
+
+        public static <#=ClassName#> GetByID(<#=GetColumnType(TableInfo.PrimayColumn)#> id)
+        {
+            using (var conn = OpenConnection())
+            {
+                return conn.Get<<#=ClassName#>>(id);
+            }
+        }
     }
 }

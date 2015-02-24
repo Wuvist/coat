@@ -9,20 +9,20 @@ namespace Coat.tpl
         private string TableName;
         private string ClassName;
         private string Namespace;
-        private List<DbInfo.Column> Columns;
+        private DbInfo.Table TableInfo;
 
-        public OrmTpl(string Namespace, string tableName, List<DbInfo.Column> columns)
+        public OrmTpl(string Namespace, string tableName, DbInfo.Table table)
         {
             this.TableName = tableName;
             this.ClassName = tableName;
-            foreach (var c in columns) {
+            foreach (var c in table.Columns) {
                 // To avoid "member name cannot be same as enclosing type" restriction in C#
                 if (c.COLUMN_NAME == tableName) {
                     this.ClassName = tableName + "Table";
                 }
             }
             this.Namespace = Namespace;
-            this.Columns = columns;
+            this.TableInfo = table;
         }
 
         string GetName(string name)

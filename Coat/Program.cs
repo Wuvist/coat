@@ -43,8 +43,8 @@ namespace Coat
 
             foreach (var tableName in tableNames)
             {
-                var columns = info.GetColumns(tableName);
-                var tpl = new tpl.OrmTpl(config.Namespace, tableName, columns);
+                var table = info.GetTable(tableName);
+                var tpl = new tpl.OrmTpl(config.Namespace, tableName, table);
                 var output = System.IO.Path.Combine(config.Output, tableName + ".generated.cs");
                 System.IO.File.WriteAllText(output, tpl.TransformText());
             }

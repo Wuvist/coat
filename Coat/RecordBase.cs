@@ -18,7 +18,7 @@ namespace Coat
         protected static string TableName;
         protected static string PrimaryKey;
 
-        public static SqlConnection OpenConnection()
+        protected static SqlConnection OpenConnection()
         {
             if (string.IsNullOrEmpty(ConnStr))
             {
@@ -27,14 +27,6 @@ namespace Coat
             SqlConnection connection = new SqlConnection(ConnStr);
             connection.Open();
             return connection;
-        }
-
-        public static T GetByID(string id)
-        {
-            using (var conn = OpenConnection())
-            {
-                return conn.Get<T>(id);
-            }
         }
 
         static RecordBase()
