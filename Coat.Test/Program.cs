@@ -11,9 +11,12 @@ namespace Coat.Test
     {
         static void Main(string[] args)
         {
-            var o = d2d.AdminInfo.FindOne("UserName = 'testuser'");
-            Console.WriteLine(o.UserName);
+            var objs = d2d.AdminInfo.GetByIDs(new List<int>(){1, 2});
+            foreach (var o in objs) {
+                Console.WriteLine(o.UserName);
 
+            }
+            
         }
     }
 }

@@ -32,7 +32,7 @@ Coat currently supports R->O mapping, i.e. it reads existing schema from databas
   * generated file name is like `tablename.generated.cs`
 * namespace: string, the namespace of generated files
 
-The config file should be as simple as possible, however, it may be extended to contains model/table schema info to fascilitate R->O mapping, or support O->R mapping.
+The config file should be as simple as possible. It may be extended to contains model/table schema info to fascilitate R->O mapping, or support O->R mapping.
 
 # Static APIs
 
@@ -57,3 +57,8 @@ The config file should be as simple as possible, however, it may be extended to 
 ## Delete()
 
 ## Foreign Key
+
+# Todo
+
+* Foreign Key support
+* mysql support
