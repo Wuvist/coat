@@ -18,7 +18,7 @@ using System.Linq;
 namespace <#=Namespace#>
 {
     [Table("<#=TableName#>")]
-    public class <#=ClassName#> : RecordBase<<#=ClassName#>, <#=GetColumnType(TableInfo.PrimayColumn)#>>
+    public partial class <#=ClassName#> : RecordBase<<#=ClassName#>, <#=GetColumnType(TableInfo.PrimayColumn)#>>
     {
         [Key]
 <# foreach (var column in TableInfo.Columns){ #>
