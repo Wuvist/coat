@@ -26,15 +26,6 @@ namespace Coat
 
             var config = deserializer.Deserialize<Config>(input);
 
-            //using (var transactionScope = new TransactionScope()) {
-            //    var obj = AdminInfo.Get("14B63059-DF00-4945-AD5D-60AF0EAB6E96");
-            //    var s = Snapshotter.Start<AdminInfo>(obj);
-
-            //    //obj.Message = "bingo";
-            //    Console.WriteLine(obj.Message);
-            //    transactionScope.Complete();
-            //}
-
             var info = new DbInfo(config.Conn);
             List<string> tableNames = config.Tables;
             var ignoreTables = (from table in config.Tables where table.StartsWith("-") select table.Substring(1)).ToList();
