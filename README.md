@@ -157,3 +157,5 @@ obj.Update();
 * Foreign Key support
 * mysql support
 * Integrate where predicate
+* Add db obj
+* Add diff Update support

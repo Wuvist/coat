@@ -69,12 +69,10 @@
     <Compile Include="models\UsageDetail.generated.cs" />
     <Compile Include="models\UsageSummary.generated.cs" />
     <Compile Include="models\UserProfile.generated.cs" />
-    <Compile Include="models\UserTemplate.generated.cs" />
     <Compile Include="models\Waybill.generated.cs" />
     <Compile Include="models\webpages_Membership.generated.cs" />
     <Compile Include="models\webpages_OAuthMembership.generated.cs" />
     <Compile Include="models\webpages_Roles.generated.cs" />
-    <Compile Include="models\webpages_UsersInRoles.generated.cs" />
     <Compile Include="models\ZipGroup.generated.cs" />
     <Compile Include="models\ZipLocation.generated.cs" />
     <Compile Include="Program.cs" />
