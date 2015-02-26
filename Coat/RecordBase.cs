@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Coat
 {
-    public abstract class RecordBase<T> where T : RecordBase<T>, new()
+    public abstract class RecordBase<T, PrimaryKeyType> where T : RecordBase<T, PrimaryKeyType>, new()
     {
         private static string ConnStr;
         public static void SetConn(string connStr)
@@ -34,6 +34,24 @@ namespace Coat
             // This is the ensure sub-class static constructor will be run
             // i.e. TableName / PrimayKey etc will be set
             System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(T).TypeHandle);
+        }
+
+        public static T GetByID(PrimaryKeyType id)
+        {
+            using (var conn = OpenConnection())
+            {
+                return conn.Get<T>(id);
+            }
+        }
+
+        public static List<T> GetByIDs(List<PrimaryKeyType> ids)
+        {
+            using (var conn = OpenConnection())
+            {
+                var sql = "select * from " + TableName + " where " + PrimaryKey + " in @ids";
+
+                return conn.Query<T>(sql, new { ids = ids }).ToList();
+            }
         }
 
         public static List<T> Find(string where, object param = null)

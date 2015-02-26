@@ -18,7 +18,7 @@ using System.Linq;
 namespace <#=Namespace#>
 {
     [Table("<#=TableName#>")]
-    public class <#=ClassName#> : RecordBase<<#=ClassName#>>
+    public class <#=ClassName#> : RecordBase<<#=ClassName#>, <#=GetColumnType(TableInfo.PrimayColumn)#>>
     {
         [Key]
 <# foreach (var column in TableInfo.Columns){ #>
@@ -30,23 +30,5 @@ namespace <#=Namespace#>
 			TableName = "<#=TableName#>";
 			PrimaryKey = "<#=TableInfo.PrimaryKey#>";
 		}
-
-        public static <#=ClassName#> GetByID(<#=GetColumnType(TableInfo.PrimayColumn)#> id)
-        {
-            using (var conn = OpenConnection())
-            {
-                return conn.Get<<#=ClassName#>>(id);
-            }
-        }
-
-		public static List<<#=ClassName#>> GetByIDs(List<<#=GetColumnType(TableInfo.PrimayColumn)#>> ids)
-        {
-            using (var conn = OpenConnection())
-            {
-                var sql = "select * from <#=TableName#> where <#=TableInfo.PrimaryKey#> in @ids";
-                
-                return conn.Query<<#=ClassName#>>(sql, new {ids = ids}).ToList();
-            }
-        }
     }
 }
