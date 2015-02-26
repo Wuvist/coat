@@ -45,7 +45,6 @@ namespace Coat
                 var output = System.IO.Path.Combine(config.Output, tableName + ".generated.cs");
                 System.IO.File.WriteAllText(output, tpl.TransformText());
             }
-            System.IO.File.Copy("RecordBase.cs", System.IO.Path.Combine(config.Output, "RecordBase.generated.cs"), true);
         }
     }
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coat", "Coat\Coat.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coat.Test", "Coat.Test\Coat.Test.csproj", "{8527FA95-5504-4800-8271-B1B2DFFAEFED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coat.Base", "Coat.Base\Coat.Base.csproj", "{A368C3B6-012D-4059-9C28-9177722B15C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8527FA95-5504-4800-8271-B1B2DFFAEFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8527FA95-5504-4800-8271-B1B2DFFAEFED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8527FA95-5504-4800-8271-B1B2DFFAEFED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A368C3B6-012D-4059-9C28-9177722B15C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A368C3B6-012D-4059-9C28-9177722B15C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A368C3B6-012D-4059-9C28-9177722B15C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A368C3B6-012D-4059-9C28-9177722B15C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

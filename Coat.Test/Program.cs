@@ -11,6 +11,8 @@ namespace Coat.Test
     {
         static void Main(string[] args)
         {
+            d2d.AdminInfo.Find(p => (p.UserName == ""));
+
             var objs = d2d.AdminInfo.GetByIDs(new List<int>(){1, 2});
             foreach (var o in objs) {
                 Console.WriteLine(o.UserName);

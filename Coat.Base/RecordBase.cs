@@ -1,11 +1,13 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
-using System.Data.SqlClient;
-using System.Configuration;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Expressions;
 
-namespace Coat
+namespace Coat.Base
 {
     public abstract class RecordBase<T, PrimaryKeyType> where T : RecordBase<T, PrimaryKeyType>, new()
     {
@@ -54,12 +56,21 @@ namespace Coat
             }
         }
 
-        public static List<T> Find(string where, object param = null)
+        public static List<T> FindWithSql(string where, object param = null)
         {
             using (var conn = OpenConnection())
             {
                 var sql = "select * from " + TableName + " where " + where;
                 return conn.Query<T>(sql, param).ToList();
+            }
+        }
+
+        public static List<T> Find(Expression<Func<T, bool>> where)
+        {
+            using (var conn = OpenConnection())
+            {
+                var sql = where.ToString();
+                return conn.Query<T>(sql).ToList();
             }
         }
 

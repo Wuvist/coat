@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8527FA95-5504-4800-8271-B1B2DFFAEFED}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{A368C3B6-012D-4059-9C28-9177722B15C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Coat.Test</RootNamespace>
-    <AssemblyName>Coat.Test</AssemblyName>
+    <RootNamespace>Coat.Base</RootNamespace>
+    <AssemblyName>Coat.Base</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -51,40 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="models\AdminInfo.generated.cs" />
-    <Compile Include="models\DeviceInfo.generated.cs" />
-    <Compile Include="models\DriverSalaryFulltime.generated.cs" />
-    <Compile Include="models\DriverSalaryParttime.generated.cs" />
-    <Compile Include="models\DriverZip.generated.cs" />
-    <Compile Include="models\ELMAH_Error.generated.cs" />
-    <Compile Include="models\History.generated.cs" />
-    <Compile Include="models\Images.generated.cs" />
-    <Compile Include="models\JobInfo.generated.cs" />
-    <Compile Include="models\MailStatus.generated.cs" />
-    <Compile Include="models\SalaryPlan1.generated.cs" />
-    <Compile Include="models\SalaryPlan2.generated.cs" />
-    <Compile Include="models\SystemParameter.generated.cs" />
-    <Compile Include="models\TaskInfo.generated.cs" />
-    <Compile Include="models\UsageDetail.generated.cs" />
-    <Compile Include="models\UsageSummary.generated.cs" />
-    <Compile Include="models\UserProfile.generated.cs" />
-    <Compile Include="models\Waybill.generated.cs" />
-    <Compile Include="models\webpages_Membership.generated.cs" />
-    <Compile Include="models\webpages_OAuthMembership.generated.cs" />
-    <Compile Include="models\webpages_Roles.generated.cs" />
-    <Compile Include="models\ZipGroup.generated.cs" />
-    <Compile Include="models\ZipLocation.generated.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="RecordBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Coat.Base\Coat.Base.csproj">
-      <Project>{a368c3b6-012d-4059-9c28-9177722b15c5}</Project>
-      <Name>Coat.Base</Name>
-    </ProjectReference>
+    <Compile Include="WhereClauseBuilders\IWhereClauseBuilder.cs" />
+    <Compile Include="WhereClauseBuilders\SqlWhereClauseBuilder.cs" />
+    <Compile Include="WhereClauseBuilders\WhereClauseBuilder.cs" />
+    <Compile Include="WhereClauseBuilders\WhereClauseBuildResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

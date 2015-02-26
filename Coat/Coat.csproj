@@ -70,9 +70,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RecordBase.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Config.cs" />
     <Compile Include="DbInfo.cs" />
     <Compile Include="tpl\OrmTpl.cs">
