@@ -9,6 +9,7 @@
 // </auto-generated>
 // ------------------------------------------------------------------------------
 using Coat.Base;
+using Coat.Base.SqlMapping;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using System;
@@ -29,6 +30,7 @@ namespace <#=Namespace#>
 		{
 			TableName = "<#=TableName#>";
 			PrimaryKey = "<#=TableInfo.PrimaryKey#>";
+			TableMappingInfo.Create(typeof(<#=ClassName#>));
 		}
     }
 }

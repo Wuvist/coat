@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using Coat.Base.WhereClauseBuilders;
+using Dapper;
 using Dapper.Contrib.Extensions;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,17 @@ namespace Coat.Base
             }
         }
 
+        public static List<T> Find(Expression<Func<T, bool>> where)
+        {
+            using (var conn = OpenConnection())
+            {
+                IWhereClauseBuilder<T> whereClause = new SqlWhereClauseBuilder<T>();
+                var clause = whereClause.BuildWhereClause(where);
+                var sql = "select * from " + TableName + " where " + clause.WhereClause;
+                return conn.Query<T>(sql, clause.ParameterValues).ToList();
+            }
+        }
+
         public static List<T> FindWithSql(string where, object param = null)
         {
             using (var conn = OpenConnection())
@@ -65,16 +77,18 @@ namespace Coat.Base
             }
         }
 
-        public static List<T> Find(Expression<Func<T, bool>> where)
+        public static T FindOne(Expression<Func<T, bool>> where)
         {
             using (var conn = OpenConnection())
             {
-                var sql = where.ToString();
-                return conn.Query<T>(sql).ToList();
+                IWhereClauseBuilder<T> whereClause = new SqlWhereClauseBuilder<T>();
+                var clause = whereClause.BuildWhereClause(where);
+                var sql = "select top 1 * from " + TableName + " where " + clause.WhereClause;
+                return conn.Query<T>(sql, clause.ParameterValues).FirstOrDefault();
             }
         }
 
-        public static T FindOne(string where, object param = null)
+        public static T FindOneWithSql(string where, object param = null)
         {
             using (var conn = OpenConnection())
             {

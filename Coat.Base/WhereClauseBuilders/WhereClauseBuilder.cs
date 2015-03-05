@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coat.Base.SqlMapping;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -207,34 +208,34 @@ namespace Coat.Base.WhereClauseBuilders
         ///     The modified expression, if it or any subexpression was modified; otherwise,
         ///     returns the original expression.
         /// </returns>
-        //protected override Expression VisitMember(MemberExpression node)
-        //{
-        //    if (node.Member.DeclaringType == typeof (TDataObject) ||
-        //        typeof (TDataObject).IsSubclassOf(node.Member.DeclaringType))
-        //    {
-        //        TableMappingInfo tableMappingInfo = TableMappingInfo.TableMapping[typeof (TDataObject)];
-        //        ColumnMappingInfo mappedColumn =
-        //            tableMappingInfo.Columns.FirstOrDefault(p => p.PropertyName == node.Member.Name);
-        //        if (mappedColumn != null)
-        //        {
-        //            Out(mappedColumn.ColumnName);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (node.Member is FieldInfo)
-        //        {
-        //            var ce = node.Expression as ConstantExpression;
-        //            var fi = node.Member as FieldInfo;
-        //            object fieldValue = fi.GetValue(ce.Value);
-        //            Expression constantExpr = Expression.Constant(fieldValue);
-        //            Visit(constantExpr);
-        //        }
-        //        else
-        //            throw new NotSupportedException("can't support");
-        //    }
-        //    return node;
-        //}
+        protected override Expression VisitMember(MemberExpression node)
+        {
+            if (node.Member.DeclaringType == typeof(TDataObject) ||
+                typeof(TDataObject).IsSubclassOf(node.Member.DeclaringType))
+            {
+                TableMappingInfo tableMappingInfo = TableMappingInfo.TableMapping[typeof(TDataObject)];
+                ColumnMappingInfo mappedColumn =
+                    tableMappingInfo.Columns.FirstOrDefault(p => p.PropertyName == node.Member.Name);
+                if (mappedColumn != null)
+                {
+                    Out(mappedColumn.ColumnName);
+                }
+            }
+            else
+            {
+                if (node.Member is FieldInfo)
+                {
+                    var ce = node.Expression as ConstantExpression;
+                    var fi = node.Member as FieldInfo;
+                    object fieldValue = fi.GetValue(ce.Value);
+                    Expression constantExpr = Expression.Constant(fieldValue);
+                    Visit(constantExpr);
+                }
+                else
+                    throw new NotSupportedException("can't support");
+            }
+            return node;
+        }
 
         /// <summary>
         ///     Visits the children of <see cref="System.Linq.Expressions.ConstantExpression" />.
