@@ -2,7 +2,6 @@
 using System.Linq;
 using Dapper;
 using Dapper.Contrib.Extensions;
-using Dapper.Rainbow;
 using System.Collections.Generic;
 using System.Transactions;
 using System.Text;
