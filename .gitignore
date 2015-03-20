@@ -3,3 +3,5 @@ Coat/tpl/*Tpl.cs
 *.generated.cs
 packages/
 Coat.Test/obj/
+Coat.Base/obj/
+Coat/obj/
