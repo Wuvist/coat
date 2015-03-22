@@ -14,10 +14,10 @@ namespace Coat.Test
             var user = d2d.AdminInfo.FindOne(p => (p.UserName == "admin"));
             Console.WriteLine(user.Password);
 
-            var objs = d2d.AdminInfo.GetByIDs(new List<int>(){1, 2});
-            foreach (var o in objs) {
+            var objs = d2d.AdminInfo.Find(p => (p.IsValid == true), 2, 0);
+            foreach (var o in objs)
+            {
                 Console.WriteLine(o.UserName);
-
             }
             Console.ReadLine();
         }

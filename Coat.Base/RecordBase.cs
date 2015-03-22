@@ -57,7 +57,7 @@ namespace Coat.Base
             }
         }
 
-        public static List<T> Find(Expression<Func<T, bool>> where)
+        public static List<T> FindAll(Expression<Func<T, bool>> where)
         {
             using (var conn = OpenConnection())
             {
@@ -68,11 +68,64 @@ namespace Coat.Base
             }
         }
 
-        public static List<T> FindWithSql(string where, object param = null)
+        public static List<T> FindAllWithSql(string where, object param = null)
         {
             using (var conn = OpenConnection())
             {
                 var sql = "select * from " + TableName + " where " + where;
+                return conn.Query<T>(sql, param).ToList();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <param name="orderBy">Default to null, means order by table's primary key in descending order
+        /// i.e. id desc in most case</param>
+        /// <returns></returns>
+        public static List<T> Find(Expression<Func<T, bool>> where, int limit, int offset, string orderBy = null)
+        {
+            if (orderBy == null)
+            {
+                orderBy = PrimaryKey + " desc";
+            }
+            using (var conn = OpenConnection())
+            {
+                IWhereClauseBuilder<T> whereClause = new SqlWhereClauseBuilder<T>();
+                var clause = whereClause.BuildWhereClause(where);
+                var sql = "select * from " + TableName + " where " + clause.WhereClause +
+                    " order by " + orderBy +
+                    " OFFSET " + offset.ToString() + " ROWS" +
+                    " FETCH NEXT " + limit.ToString() + " ROWS ONLY";
+                return conn.Query<T>(sql, clause.ParameterValues).ToList();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="param"></param>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <param name="orderBy">Default to null, means order by table's primary key in descending order
+        /// i.e. id desc in most case</param>
+        /// <returns></returns>
+        public static List<T> FindWithSql(string where, object param, int limit, int offset, string orderBy = null)
+        {
+            if (orderBy == null)
+            {
+                orderBy = PrimaryKey + " desc";
+            }
+            using (var conn = OpenConnection())
+            {
+                var sql = "select * from " + TableName + " where " + where +
+                    " order by " + orderBy +
+                    " OFFSET " + offset.ToString() + " ROWS" +
+                    " FETCH NEXT " + limit.ToString() + " ROWS ONLY";
                 return conn.Query<T>(sql, param).ToList();
             }
         }
