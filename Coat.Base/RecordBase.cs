@@ -108,7 +108,7 @@ namespace Coat.Base
         /// 
         /// </summary>
         /// <param name="where"></param>
-        /// <param name="param"></param>
+        /// <param name="param">Pass null if no param is required</param>
         /// <param name="limit"></param>
         /// <param name="offset"></param>
         /// <param name="orderBy">Default to null, means order by table's primary key in descending order
