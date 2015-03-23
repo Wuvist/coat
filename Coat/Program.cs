@@ -20,7 +20,7 @@ namespace Coat
                 return;
             }
 
-            var input = System.IO.File.OpenText("default.yaml");
+            var input = System.IO.File.OpenText(args[0]);
             var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
 
             var config = deserializer.Deserialize<Config>(input);
