@@ -159,11 +159,27 @@ namespace Coat.Base
             }
         }
 
+        public long Insert()
+        {
+            using (var conn = OpenConnection())
+            {
+                return conn.Insert<T>((T)this);
+            }
+        }
+
         public bool Update()
         {
             using (var conn = OpenConnection())
             {
                 return conn.Update<T>((T)this);
+            }
+        }
+
+        public bool Remove()
+        {
+            using (var conn = OpenConnection())
+            {
+                return conn.Delete<T>((T)this);
             }
         }
     }
