@@ -57,22 +57,32 @@ namespace Coat.Base
             }
         }
 
-        public static List<T> FindAll(Expression<Func<T, bool>> where)
+        public static List<T> FindAll(Expression<Func<T, bool>> where, string orderBy = null)
         {
+            if (orderBy == null)
+            {
+                orderBy = PrimaryKey + " desc";
+            }
             using (var conn = OpenConnection())
             {
                 IWhereClauseBuilder<T> whereClause = new SqlWhereClauseBuilder<T>();
                 var clause = whereClause.BuildWhereClause(where);
-                var sql = "select * from " + TableName + " where " + clause.WhereClause;
+                var sql = "select * from " + TableName + " where " + clause.WhereClause +
+                    " order by " + orderBy;
                 return conn.Query<T>(sql, clause.ParameterValues).ToList();
             }
         }
 
-        public static List<T> FindAllWithSql(string where, object param = null)
+        public static List<T> FindAllWithSql(string where, object param = null, string orderBy = null)
         {
+            if (orderBy == null)
+            {
+                orderBy = PrimaryKey + " desc";
+            }
             using (var conn = OpenConnection())
             {
-                var sql = "select * from " + TableName + " where " + where;
+                var sql = "select * from " + TableName + " where " + where +
+                    " order by " + orderBy;
                 return conn.Query<T>(sql, param).ToList();
             }
         }

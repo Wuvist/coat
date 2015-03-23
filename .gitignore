@@ -5,3 +5,4 @@ packages/
 Coat.Test/obj/
 Coat.Base/obj/
 Coat/obj/
+*.nupkg
