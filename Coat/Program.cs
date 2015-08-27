@@ -35,14 +35,21 @@ namespace Coat
 
             foreach (var tableName in tableNames)
             {
-                if (ignoreTables.Contains(tableName))
+                try
                 {
-                    continue;
+                    if (ignoreTables.Contains(tableName))
+                    {
+                        continue;
+                    }
+                    var table = info.GetTable(tableName);
+                    var tpl = new tpl.OrmTpl(config.Namespace, tableName, table);
+                    var output = System.IO.Path.Combine(config.Output, tableName + ".generated.cs");
+                    System.IO.File.WriteAllText(output, tpl.TransformText());
                 }
-                var table = info.GetTable(tableName);
-                var tpl = new tpl.OrmTpl(config.Namespace, tableName, table);
-                var output = System.IO.Path.Combine(config.Output, tableName + ".generated.cs");
-                System.IO.File.WriteAllText(output, tpl.TransformText());
+                catch (Exception ex) {
+                    Console.Error.WriteLine("table error: " + tableName);
+                    Console.Error.WriteLine(ex.ToString());
+                }
             }
         }
     }
