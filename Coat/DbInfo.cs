@@ -69,11 +69,17 @@ namespace Coat
                 var result = new Table();
                 result.Columns = GetColumns(tableName);
                 result.PrimaryKey = GetPrimaryKey(tableName);
-                if (result.PrimaryKey != result.Columns[0].COLUMN_NAME)
+                foreach (var column in result.Columns)
                 {
-                    throw new Exception(tableName + "'s first column is not primary key");
+                    if (result.PrimaryKey == column.COLUMN_NAME)
+                    {
+                       result.PrimayColumn = column;
+                       break;
+                    }
                 }
-                result.PrimayColumn = result.Columns[0];
+                if (result.PrimayColumn == null) {
+                    throw new Exception(tableName + " has no primary key");
+                }
 
                 return result;
             }
