@@ -25,22 +25,24 @@ namespace Coat.tpl
             this.TableInfo = table;
         }
 
-        string GetName(string name)
-        {
-            return "bingo" + name;
-        }
-
         string GetDataType(DbInfo.Column column)
         {
             switch (column.TYPE_NAME)
             {
                 case "bit":
                     return "bool";
+                case "date":
                 case "datetime":
                     return "DateTime";
+                case "smallint":
+                case "tinyint":
+                    return "short";
                 case "int":
                 case "int identity":
                     return "int";
+                case "bigint":
+                case "bigint identity":
+                    return "long";
                 case "decimal":
                     return "decimal";
                 case "real":
@@ -48,6 +50,8 @@ namespace Coat.tpl
                 case "money":
                 case "float":
                     return "double";
+                case "char":
+                case "nchar":
                 case "text":
                 case "ntext":
                 case "varchar":
