@@ -43,11 +43,11 @@ namespace Coat.tpl
                 case "bigint":
                 case "bigint identity":
                     return "long";
+                case "money":
                 case "decimal":
                     return "decimal";
                 case "real":
                     return "float";
-                case "money":
                 case "float":
                     return "double";
                 case "char":
