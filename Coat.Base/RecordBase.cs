@@ -51,7 +51,7 @@ namespace Coat.Base
         {
             using (var conn = OpenConnection())
             {
-                var sql = "select * from " + TableName + " where " + PrimaryKey + " in @ids";
+                var sql = "select * from [" + TableName + "] where " + PrimaryKey + " in @ids";
 
                 return conn.Query<T>(sql, new { ids = ids }).ToList();
             }
@@ -67,7 +67,7 @@ namespace Coat.Base
             {
                 IWhereClauseBuilder<T> whereClause = new SqlWhereClauseBuilder<T>();
                 var clause = whereClause.BuildWhereClause(where);
-                var sql = "select * from " + TableName + " where " + clause.WhereClause +
+                var sql = "select * from [" + TableName + "] where " + clause.WhereClause +
                     " order by " + orderBy;
                 return conn.Query<T>(sql, clause.ParameterValues).ToList();
             }
@@ -81,7 +81,7 @@ namespace Coat.Base
             }
             using (var conn = OpenConnection())
             {
-                var sql = "select * from " + TableName + " where " + where +
+                var sql = "select * from [" + TableName + "] where " + where +
                     " order by " + orderBy;
                 return conn.Query<T>(sql, param).ToList();
             }
@@ -106,7 +106,7 @@ namespace Coat.Base
             {
                 IWhereClauseBuilder<T> whereClause = new SqlWhereClauseBuilder<T>();
                 var clause = whereClause.BuildWhereClause(where);
-                var sql = "select * from " + TableName + " where " + clause.WhereClause +
+                var sql = "select * from [" + TableName + "] where " + clause.WhereClause +
                     " order by " + orderBy +
                     " OFFSET " + offset.ToString() + " ROWS" +
                     " FETCH NEXT " + limit.ToString() + " ROWS ONLY";
@@ -132,7 +132,7 @@ namespace Coat.Base
             }
             using (var conn = OpenConnection())
             {
-                var sql = "select * from " + TableName + " where " + where +
+                var sql = "select * from [" + TableName + "] where " + where +
                     " order by " + orderBy +
                     " OFFSET " + offset.ToString() + " ROWS" +
                     " FETCH NEXT " + limit.ToString() + " ROWS ONLY";
@@ -146,7 +146,7 @@ namespace Coat.Base
             {
                 IWhereClauseBuilder<T> whereClause = new SqlWhereClauseBuilder<T>();
                 var clause = whereClause.BuildWhereClause(where);
-                var sql = "select top 1 * from " + TableName + " where " + clause.WhereClause;
+                var sql = "select top 1 * from [" + TableName + "] where " + clause.WhereClause;
                 return conn.Query<T>(sql, clause.ParameterValues).FirstOrDefault();
             }
         }
@@ -155,7 +155,7 @@ namespace Coat.Base
         {
             using (var conn = OpenConnection())
             {
-                var sql = "select top 1 * from " + TableName + " where " + where;
+                var sql = "select top 1 * from [" + TableName + "] where " + where;
                 return conn.Query<T>(sql, param).FirstOrDefault();
             }
         }
@@ -164,7 +164,7 @@ namespace Coat.Base
         {
             using (var conn = OpenConnection())
             {
-                var sql = "select * from " + TableName;
+                var sql = "select * from [" + TableName + "]";
                 return conn.Query<T>(sql).ToList();
             }
         }
