@@ -6,3 +6,6 @@ Coat.Test/obj/
 Coat.Base/obj/
 Coat/obj/
 *.nupkg
+Coat.Test/bin
+Coat.Base/bin
+Coat/bin
